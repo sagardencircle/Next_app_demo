@@ -2,7 +2,9 @@ import $ from "jquery"
 import Image from "next/image"
 import profileImg from "../public/profile.jpg"
 import Link from "next/link"
-import { useEffect } from "react"
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+
 
 const Menu_List = [
     {
@@ -53,16 +55,30 @@ const Social_link = [
 ]
 
 export default function Sidebar() {
+    
+    
+    const [isActive, setActive] = useState(false);
+
     const handleClick = (e) => {
+        //setActive(!isActive);
+        
         e.preventDefault();
-        const target = e.target.getAttribute('href');
+        //e.target.classList.add("active");
+
+        const link = e.target.getAttribute('href');
+        //const spal = target.replace(/\\/g, '-');
+        const target = link.split('/').join('');
         const location = document.querySelector(target).offsetTop;
+        //console.log(target);
+        $('.navbar-nav .active').removeClass('active');
+       e.target.classList.add('active')
+        
         window.scrollTo(
             {
                 top: location
             }
         )
-        console.log(location);
+
     }
     
     return(
@@ -81,7 +97,7 @@ export default function Sidebar() {
                             <ul className="nav navbar-nav">
                                 {Menu_List.map((menu, idx) => (
                                     <li className="nav-item" key={menu.text}>
-                                        <Link className="nav-link" href={menu.href} onClick={handleClick}>
+                                        <Link className={idx == 0 ? 'active nav-link': 'nav-link'} href={menu.href} onClick={handleClick}>
                                             {menu.text}<i className={menu.icon}></i>
                                         </Link>
                                     </li>

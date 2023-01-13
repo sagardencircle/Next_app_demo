@@ -29,10 +29,10 @@ export default function HomeSlider() {
                     <div className="typed-text">Web Designer, Web Developer, Front End Developer, Apps Developer, Graphic Designer</div>
                 </div>
             </div>
-            <div class="large-btn">
-                <div class="content-inner">
-                    <Link class="btn" href="#"><i class="fa fa-download"></i>Resume</Link>
-                    <Link class="btn" href="#"><i class="fa fa-hands-helping"></i>Hire Me</Link>
+            <div className="large-btn">
+                <div className="content-inner">
+                    <Link className="btn" href="#"><i className="fa fa-download"></i>Resume</Link>
+                    <Link className="btn" href="#"><i className="fa fa-hands-helping"></i>Hire Me</Link>
                 </div>
             </div>
               

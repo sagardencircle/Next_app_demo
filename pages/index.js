@@ -12,10 +12,10 @@ import Review from '../component/Review';
 import Contact from '../component/Contact';
 import { useEffect } from 'react';
 
-
 export default function Home() {
-
+  
   useEffect(() => {
+   // document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
     $(window).scroll(function () {
       //console.log($(this).scrollTop());
      // const postiton = document.querySelector();

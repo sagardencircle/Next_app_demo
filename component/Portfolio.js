@@ -3,10 +3,21 @@ import { Col, Row } from "react-bootstrap"
 import Image from "next/image"
 import portfolio from "../public/portfolio-1.jpg"
 import Link from "next/link"
+import { useState } from "react"
 
 
 
 export default function Portfolio(){
+
+    const [item, setItem] = useState('All');
+
+    //console.log(item);
+
+    const filterCat = (cateItems) => {
+        console.log(item);
+        setItem(cateItems);
+        
+    }
 
     return(
         <>
@@ -18,10 +29,10 @@ export default function Portfolio(){
                         <Row>
                             <Col lg={12}>
                                 <ul id="portfolio-flters">
-                                    <li data-filter="*" className="filter-active">All</li>
-                                    <li data-filter=".web-des">Design</li>
-                                    <li data-filter=".web-dev">Development</li>
-                                    <li data-filter=".dig-mar">Marketing</li>
+                                    <li data-filter="*" className="filter-active" onClick={() => filterCat('All')}>All</li>
+                                    <li data-filter=".web-des" onClick={() => filterCat('web-des')}>Design</li>
+                                    <li data-filter=".web-dev" onClick={() => filterCat('web-dev')}>Development</li>
+                                    <li data-filter=".dig-mar" onClick={() => filterCat('dig-mar')}>Marketing</li>
                                 </ul>
                             </Col>
                         </Row>

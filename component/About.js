@@ -3,8 +3,29 @@ import AboutImg from "../public/about.jpg"
 import { Col, Container, Row } from "react-bootstrap"
 import Link from "next/link"
 import { MDBProgress, MDBProgressBar } from 'mdb-react-ui-kit';
+import { useEffect, useState } from "react";
 
 export default function About() {
+
+    const [oldData, setData] = useState();
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        setIsLoading(true);
+        fetch('http://localhost:8080/profile')
+        .then(respone => respone.json())
+        .then(data => {
+            setData(data);
+            setIsLoading(false);
+        }); 
+    }, [])
+
+    if (isLoading) {
+        return <p>Loading....</p>
+    }
+    if (!oldData) {
+        return <p>No List to show</p>
+    }
 
     return (
         <>
@@ -18,12 +39,12 @@ export default function About() {
                             <Col md={6} lg={5}>
                                 <Image src={AboutImg} alt="about image" />
                             </Col>
-                            <Col md={6} lg={7}>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu suscipit orci. Donec molestie velit id libero blandit, quis suscipit urna suscipit. Donec aliquet erat eu lacinia iaculis. Ut tempor tellus eu sem pharetra feugiat. Proin libero ligula, gravida at porttitor eget.
-                                </p>
+                            {oldData.map( (data, idx) => 
+                            <Col md={6} lg={7} key={idx}>                             
+                                <p>{data.content}</p>
                                 <Link className="btn" href="#">Hire Me</Link>
                             </Col>
+                               )}
                         </Row>
                         <Row>
                             <Col md={6}>

@@ -1,6 +1,6 @@
 import $ from "jquery"
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Typed from 'typed.js';
 
 export default function HomeSlider() {
@@ -19,15 +19,38 @@ export default function HomeSlider() {
         }
       })
 
+      const [oldData, setData] = useState();
+      const [isLoading, setIsLoading] = useState(false);
+
+      useEffect(() => {
+        setIsLoading(true);
+        fetch('http://localhost:8080/profile')
+        .then(response => response.json())
+        .then(data => {
+            setData(data)
+            setIsLoading(false);
+        })
+
+      }, []);
+
+        if (isLoading) {
+            return <p>Loading....</p>
+        }
+        if (!oldData) {
+            return <p>No List to show</p>
+        }
+
     return (
         <>
             <div className="header" id="header">
-                <div className="content-inner">
-                    <p>I'm</p>
-                    <h1>Michael Miller</h1>
-                    <h2></h2>
-                    <div className="typed-text">Web Designer, Web Developer, Front End Developer, Apps Developer, Graphic Designer</div>
-                </div>
+                {oldData.map( (data, idx) =>
+                    <div className="content-inner" key={idx}>
+                        <p>I'm</p>
+                        <h1>{data.user_name}</h1>
+                        <h2></h2>
+                        <div className="typed-text">{data.designation}</div>
+                    </div>
+                )}
             </div>
             <div className="large-btn">
                 <div className="content-inner">
